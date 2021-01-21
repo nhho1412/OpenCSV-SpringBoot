@@ -8,6 +8,8 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
@@ -16,6 +18,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import com.tiger.demoOpenCSV.model.Country;
 import com.tiger.demoOpenCSV.model.CountryAnn;
 
+@Service
 public class OpenCsvLogic {
 	// the delimiter to use for separating entries
 	private static final char DEFAULT_SEPARATOR = ',';

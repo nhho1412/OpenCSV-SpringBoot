@@ -16,9 +16,15 @@ public class OpenCsvController {
 	@Autowired
 	OpenCsvLogic openCsvLogic;
 	
-	@GetMapping(value = "/demoCSV")
-	public String demoCSV(@RequestParam("title") String title) throws IOException {
+	@GetMapping(value = "/demoCsvWriter")
+	public String demoCsvWriter(@RequestParam("title") String title) throws IOException {
 		openCsvLogic.csvWriter();
+		return "done";
+	}
+	
+	@GetMapping(value = "/demoCsvReader")
+	public String demoCsvReader(@RequestParam("title") String title) throws IOException {
+		openCsvLogic.csvReader();
 		return "done";
 	}
 }
