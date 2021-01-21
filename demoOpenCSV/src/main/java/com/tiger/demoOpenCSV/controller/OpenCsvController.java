@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tiger.demoOpenCSV.service.OpenCsvWriter;
+import com.tiger.demoOpenCSV.logic.OpenCsvLogic;
 
 @RestController
 @RequestMapping(value = "/tiger-openCSV")
 public class OpenCsvController {
 	@Autowired
-	OpenCsvWriter openCsvWriter;
+	OpenCsvLogic openCsvLogic;
 	
 	@GetMapping(value = "/demoCSV")
 	public String demoCSV(@RequestParam("title") String title) throws IOException {
-		openCsvWriter.csvWriter();
+		openCsvLogic.csvWriter();
 		return "done";
 	}
 }
