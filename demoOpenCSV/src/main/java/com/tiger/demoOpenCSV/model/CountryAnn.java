@@ -1,15 +1,25 @@
 package com.tiger.demoOpenCSV.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.opencsv.bean.CsvBindByPosition;
 
+@Entity
+@Table(name="COUNTRY_ANN")
 public class CountryAnn {
 	@CsvBindByPosition(position = 0)
+	@Id
 	private int id;
 
 	@CsvBindByPosition(position = 1)
+	@Column(name="Code", length=10, nullable = false)
 	private String code;
 
 	@CsvBindByPosition(position = 2)
+	@Column(name="Name", length=10, nullable = false)
 	private String name;
 
 	public CountryAnn() {

@@ -8,14 +8,16 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.tiger.demoOpenCSV.model.Country;
-import com.tiger.demoOpenCSV.model.CountryAnn;
 
+@Service
 public class OpenCsvLogic {
 	// the delimiter to use for separating entries
 	private static final char DEFAULT_SEPARATOR = ',';
@@ -25,17 +27,6 @@ public class OpenCsvLogic {
 
 	// the line number to skip for start reading
 	private static final int NUM_OF_LINE_SKIP = 1;
-
-	public static void main(String[] args) throws IOException {
-		OpenCsvLogic logic = new OpenCsvLogic();
-		
-		String csvFilePath = "data.csv";
-
-		logic.csvWriter(csvFilePath);
-		logic.csvReader(csvFilePath);
-		logic.parseCSVtoBean(csvFilePath);
-		logic.ParseCsvToObjectUsingAnnotation(csvFilePath);
-	}
 
 	public void csvWriter(String csvFilePath) throws IOException {
 		try (Writer writer = new FileWriter(csvFilePath);
@@ -80,17 +71,14 @@ public class OpenCsvLogic {
 		System.out.println("read CSV to Bean successfully\n");
 	}
 
-	public void ParseCsvToObjectUsingAnnotation(String csvFilePath) throws FileNotFoundException, IOException {
+	public List<Country> ParseCsvToObjectUsingAnnotation(String csvFilePath) throws FileNotFoundException, IOException {
 		try (Reader reader = new FileReader(csvFilePath);) {
-			CsvToBean<CountryAnn> csvToBean = new CsvToBeanBuilder<CountryAnn>(reader).withType(CountryAnn.class)
-					.withSkipLines(1)
-					.withIgnoreLeadingWhiteSpace(true).build();
+			CsvToBean<Country> csvToBean = new CsvToBeanBuilder<Country>(reader).withType(Country.class)
+					.withSkipLines(1).withIgnoreLeadingWhiteSpace(true).build();
 
-			List<CountryAnn> contries = csvToBean.parse();
-			for (CountryAnn contry : contries) {
-				System.out.println(contry);
-			}
-			System.out.println("read CSV to Bean Using Annotation successfully\n");
+			List<Country> contries = csvToBean.parse();
+
+			return contries;
 		}
 	}
 }
